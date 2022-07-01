@@ -1,12 +1,10 @@
-import type { City } from 'src/types';
-import data from '../../data/popos';
+import { get as pget } from './popos'
 
-export async function get({ request }) {
+export async function get(args: any) {
+  const main = await pget(args)
+  
   return {
-    status: 200,
-    Headers: {
-      "Content-Type": "application/json"
-    },
-    body: data.cities
+    ...main,
+    body: main.body.cities
   }
 }

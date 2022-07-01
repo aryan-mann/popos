@@ -19,8 +19,11 @@
   export let cities: City[] = [];
 </script>
 
-{#each cities as city}
-  <div>
-    <a href={`/cities/${city.slug}`}>{city.displayName}</a>
+<div class="max-w-screen-sm py-12 m-auto">
+  <h1 class="text-6xl text-center py-8">Places with Places</h1>
+  <div class="space-y-4 flex flex-col">
+    {#each cities as city}
+      <a class="px-8 py-8 bg-white rounded duration-500 hover:bg-yellow-100 text-4xl" href={`/cities/${city.slug}`}>{city.displayName}</a>
+    {/each}
   </div>
-{/each}
+</div>
