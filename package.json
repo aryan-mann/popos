@@ -16,20 +16,10 @@
     "check": "svelte-check --tsconfig ./tsconfig.json",
     "check:watch": "svelte-check --tsconfig ./tsconfig.json --watch",
     "lint": "prettier --check --plugin-search-dir=. . && eslint .",
-    "format": "prettier --write --plugin-search-dir=. .",
-    "storybook": "start-storybook -p 6006",
-    "build-storybook": "build-storybook"
+    "format": "prettier --write --plugin-search-dir=. ."
   },
   "devDependencies": {
     "@babel/core": "^7.18.6",
-    "@storybook/addon-actions": "^6.5.9",
-    "@storybook/addon-essentials": "^6.5.9",
-    "@storybook/addon-interactions": "^6.5.9",
-    "@storybook/addon-links": "^6.5.9",
-    "@storybook/builder-webpack4": "^6.5.9",
-    "@storybook/manager-webpack4": "^6.5.9",
-    "@storybook/svelte": "^6.5.9",
-    "@storybook/testing-library": "^0.0.13",
     "@sveltejs/adapter-auto": "next",
     "@sveltejs/kit": "next",
     "@tsconfig/svelte": "^3.0.0",
