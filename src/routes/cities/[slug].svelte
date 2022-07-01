@@ -18,7 +18,7 @@
 </script>
 
 <script lang="ts">
-	import { distanceBetweenCoordinates } from '../../utils'
+	import { distanceBetweenCoordinates, formatTitle } from '../../utils'
 	import { derived, type Readable } from 'svelte/store';
 	
 	function distanceFromLocation(c1: Coordinates, c2: Coordinates): number {
@@ -39,6 +39,10 @@
 			.sort((x, y) => distanceFromLocation(x.mapCoordinates, y.mapCoordinates));
 	}, selectedCity?.popos || []);
 </script>
+
+<svelte:head>
+	<title>{formatTitle(`${selectedCity.displayName}`)}</title>
+</svelte:head>
 
 {#if selectedCity == null}
 	<p>City not found</p>

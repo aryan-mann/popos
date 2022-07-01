@@ -15,3 +15,7 @@ export function distanceBetweenCoordinates(coords1: [number, number], coords2: [
 
   return Math.round(d * 10) / 10;
 }
+
+export function formatTitle(title: string) {
+  return `${title} | Popos`
+}

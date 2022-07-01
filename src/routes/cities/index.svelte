@@ -1,5 +1,6 @@
 <script context="module" lang="ts">
   import type { City } from "src/types";
+import { formatTitle } from "../../utils";
 
   /** @type {import('./__types/[slug]').Load} */
   export async function load({ params, fetch, session, stuff }) {
@@ -18,6 +19,10 @@
 <script lang="ts">
   export let cities: City[] = [];
 </script>
+
+<svelte:head>
+  <title>{formatTitle('Cities')}</title>
+</svelte:head>
 
 <div class="max-w-screen-sm py-12 m-auto">
   <h1 class="text-6xl text-center py-8">Places with Places</h1>

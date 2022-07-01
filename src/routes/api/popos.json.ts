@@ -1,6 +1,6 @@
-import toml from 'toml'
 import fs from 'fs/promises'
 import type { Dataset } from 'src/types';
+import db from '../../lib/popos.json'
 
 interface PoposGet {
   status: number;
@@ -9,9 +9,9 @@ interface PoposGet {
 }
 
 /** @type {import('./__types/items').RequestHandler} */
-export async function get(): Promise<PoposGet>  {
-  const poposTomlString = await fs.readFile('./src/lib/popos.toml', "utf-8")
-  const poposJson: Dataset = toml.parse(poposTomlString);
+export async function get(args: any): Promise<PoposGet>  {
+  // const poposTomlString = await fs.readFile('./src/lib/popos.toml', "utf-8")
+  const poposJson: Dataset = db;
 
   // Some processing:
   //   1. Add city slug to Popo 
