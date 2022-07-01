@@ -5,12 +5,8 @@
 
 	/** @type {import('./__types/[slug]').Load} */
 	export async function load({ params, fetch, session, stuff }) {
-		const response = await fetch(`/data/cities`);
-		const cities: City[] = await response.json();
-
-		const selectedCitySlug: string = params.slug;
-		const selectedCities = cities.filter((city) => city.slug == selectedCitySlug);
-		const selectedCity: City | null = selectedCities.length == 1 ? selectedCities[0] : null;
+		const response = await fetch(`/api/citypopos/${params.slug}.json`);
+		const selectedCity: City = (await response.json()) || [];
 
 		return {
 			status: response.status,
@@ -23,7 +19,8 @@
 
 <script lang="ts">
 	import { distanceBetweenCoordinates } from '../../utils'
-import { derived, type Readable } from 'svelte/store';
+	import { derived, type Readable } from 'svelte/store';
+	
 	function distanceFromLocation(c1: Coordinates, c2: Coordinates): number {
 		if ($location == null)
 			return 0

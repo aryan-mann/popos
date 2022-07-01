@@ -3,7 +3,7 @@
 
   /** @type {import('./__types/[slug]').Load} */
   export async function load({ params, fetch, session, stuff }) {
-    const response = await fetch(`/data/cities`);
+    const response = await fetch(`/api/cities.json`);
     const cities: City[] = await response.json();
     
     return {
