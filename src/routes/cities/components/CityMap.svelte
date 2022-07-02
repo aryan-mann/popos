@@ -1,7 +1,8 @@
 <script lang="ts">
+	import mapboxgl, { type LngLatBoundsLike } from 'mapbox-gl';
+	import type { Popo } from 'src/types';
 	import { onMount } from 'svelte';
-	import mapboxgl, { Marker, type LngLatBoundsLike, type LngLatLike } from 'mapbox-gl';
-	import type { City, Popo } from 'src/types';
+	import turf from 'turf';
 	import { location } from '../../../state';
 	mapboxgl.accessToken = import.meta.env.VITE_MAPBOX_ACCESS_TOKEN;
 
@@ -14,28 +15,25 @@
 	let markers: Array<mapboxgl.Marker> = [];
 	let popups: Array<mapboxgl.Popup> = [];
 
-	const travelMode: 'driving' | 'walking' | 'bicycling' | 'transit' = 'transit';
-
+	const features = turf.featureCollection(
+		popos.map((popo: Popo) =>
+			turf.point([popo.mapCoordinates[1], popo.mapCoordinates[0]], { name: popo.name })
+		)
+	);
+	const boundsArr = turf.bbox(features);
+	const mapBounds: LngLatBoundsLike = [boundsArr[0], boundsArr[1], boundsArr[2], boundsArr[3]];
+	const center = turf.center(features).geometry.coordinates;
 	onMount(() => {
-		const minBounds: LngLatLike = [
-			Math.min(...popos.map((popo: Popo) => popo.mapCoordinates[1])) * 1.0001,
-			Math.min(...popos.map((popo: Popo) => popo.mapCoordinates[0])) * 1.0001
-		];
-		const maxBounds: LngLatLike = [
-			Math.max(...popos.map((popo: Popo) => popo.mapCoordinates[1])) * 1.0001,
-			Math.max(...popos.map((popo: Popo) => popo.mapCoordinates[0])) * 1.0001
-		];
-		const bounds: LngLatBoundsLike = [minBounds, maxBounds];
-
 		map = new mapboxgl.Map({
 			container: 'map',
 			style: 'mapbox://styles/mapbox/streets-v11',
-			center: [(minBounds[0] + maxBounds[0]) / 2, (minBounds[1] + maxBounds[1]) / 2],
-			projection: { name: 'globe' },
-			zoom: 9
+			center: [center[0], center[1]],
+			projection: { name: 'globe' }
 		});
 		addMarkers();
-		map.fitBounds(bounds);
+		console.log(mapBounds);
+
+		setTimeout(() => map.fitBounds(mapBounds), 1000);
 	});
 
 	// need a better way to build popups
@@ -85,6 +83,11 @@
 			map.resize();
 		}, 0); // this is so hacky but it works LOL
 	}
+
+	function flyToPopos() {
+		map.flyTo({ center: [center[0], center[1]], essential: true });
+		map.fitBounds(mapBounds);
+	}
 </script>
 
 <svelte:head>
@@ -92,4 +95,10 @@
 	<script src="https://api.mapbox.com/mapbox-gl-js/v2.9.1/mapbox-gl.js"></script>
 </svelte:head>
 
-<div id="map" class="w-full h-[calc(100vh-12rem)]" />
+<div id="map" class="w-full h-[calc(100vh-12rem)]">
+	<button
+		style="background-color: var(--color-secondary);"
+		class="absolute top-0 right-0 border m-4 p-2 z-50"
+		on:click={flyToPopos}>Focus on Popos</button
+	>
+</div>
