@@ -98,10 +98,10 @@
 			{/if}
 		</div>
 	</button>
-	<h1 class="text-7xl text-black mb-8 mt-4">{selectedCity.displayName}</h1>
+	<h1 class="text-7xl text-black mb-4">{selectedCity.displayName}</h1>
 	{#if selectedCity.popos}
 		<div class={`w-full ${!showMap ? 'hidden' : ''}`}>
-			<CityMap bind:this={mapComponent} />
+			<CityMap popos={$cityPopos} bind:this={mapComponent} />
 		</div>
 
 		{#if !showMap}
