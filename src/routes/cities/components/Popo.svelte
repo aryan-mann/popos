@@ -45,7 +45,7 @@
   }, [])
 </script>
 {#if popo}
-  <div class="group relative bg-white rounded-md shadow-sm hover:shadow-xl duration-200 w-64 ">
+  <div class="group relative bg-white rounded-md shadow-sm hover:shadow-xl duration-200">
     <div class="bb absolute w-full h-full left-0 top-0 -z-10" />
     <div class="flex flex-col h-full justify-between">
       <div class="relative">
