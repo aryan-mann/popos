@@ -5,5 +5,17 @@
 @tailwind utilities;
 
 body {
-  background-color: var(--color-primary);
+	background-color: var(--color-primary);
+}
+
+.mapboxgl-canvas {
+	position: unset !important;
+}
+
+.mapboxgl-popup-content {
+	padding: 0 !important;
+}
+
+.mapboxgl-popup-tip {
+	display: none !important;
 }
