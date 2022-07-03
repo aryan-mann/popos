@@ -101,11 +101,13 @@
 	<h1 class="text-7xl text-black mb-4">{selectedCity.displayName}</h1>
 	{#if selectedCity.popos}
 		<div class={`w-full ${!showMap ? 'hidden' : ''}`}>
-			<CityMap popos={$cityPopos} bind:this={mapComponent} />
+			<CityMap popos={$cityPopos} bind:this={mapComponent} city={selectedCity} />
 		</div>
 
 		{#if !showMap}
-			<div class={`grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-x-2 gap-y-4 justify-center`}>
+			<div
+				class={`grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-x-2 gap-y-4 justify-center`}
+			>
 				{#each $cityPopos as popo (popo.name)}
 					<Popo {popo} city={selectedCity} />
 				{/each}

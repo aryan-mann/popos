@@ -15,3 +15,7 @@ body {
 .mapboxgl-popup-content {
 	padding: 0 !important;
 }
+
+.mapboxgl-popup-tip {
+	display: none !important;
+}
