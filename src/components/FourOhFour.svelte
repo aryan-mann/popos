@@ -1,12 +1,10 @@
 <script>
 	import {onDestroy} from "svelte";
 	import { goto } from '$app/navigation';
+
+	// Timer that redirects to home after few seconds
 	const timerMaxSecs = 6;
-
-	function goHome() {
-		goto('/')
-	}
-
+	const goHome = () => goto('/')
 	let currentTimerSecs = timerMaxSecs;
 	const timerInterval = setInterval(() => {
 		if (currentTimerSecs >= 1)
@@ -15,6 +13,7 @@
 			goHome();
 	}, 1000);
 	onDestroy(() => { clearInterval(timerInterval) })
+
 </script>
 
 <style>

@@ -1,11 +1,11 @@
 <script context="module" lang="ts">
-  import type { City } from "src/types";
+  import type { CityT } from "src/types";
 import { formatTitle } from "../../utils";
 
   /** @type {import('./__types/[slug]').Load} */
-  export async function load({ params, fetch, session, stuff }) {
+  export async function load({fetch}) {
     const response = await fetch(`/api/cities.json`);
-    const cities: City[] = await response.json();
+    const cities: CityT[] = await response.json();
     
     return {
       status: response.status,
@@ -17,7 +17,7 @@ import { formatTitle } from "../../utils";
 </script>
 
 <script lang="ts">
-  export let cities: City[] = [];
+  export let cities: CityT[] = [];
 </script>
 
 <svelte:head>

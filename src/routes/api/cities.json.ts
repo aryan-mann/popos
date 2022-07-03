@@ -1,5 +1,6 @@
 import { get as pget } from './popos.json'
 
+/** @type {import('./__types/items').RequestHandler} */
 export async function get(args: any) {
   const main = await pget(args)
   

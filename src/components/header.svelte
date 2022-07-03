@@ -19,7 +19,8 @@
 	function getPosition() {
 		shouldGetPosition = true;
 	}
-	function onPositionReceived(e: any) {
+	// eslint-disable-next-line no-undef
+	function onPositionReceived(e: CustomEvent<GeolocationPosition>) {
 		const latitude = e.detail.coords.latitude;
 		const longitude = e.detail.coords.longitude;
 		
