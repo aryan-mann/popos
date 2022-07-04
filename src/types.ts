@@ -1,23 +1,34 @@
-export type Coordinates = [number, number];
+export type Coordinates = number[];
 
-export type City = {
+export type ComponentPropsT = {
+  class: string;
+  style?: string;
+}
+
+export type CityT = {
   slug: string;
   address: string;
   displayName: string;
+  imageName?: string;
   mapCoordinates: Coordinates;
-  popos?: Popo[]
+  popos?: PopoT[]
 }
 
-export type Popo = {
+export type PopoT = {
   name: string;
   imageName?: string;
   openingHours: string;
   mapCoordinates: Coordinates;
   description: string;
-  citySlug: string;
+  citySlug?: string;
 }
 
-export type Dataset = {
+export type DatasetT = {
   version: number;
-  cities: City[]
+  cities: CityT[]
+}
+
+export interface PopoLinkT {
+  url: string | null;
+  name: string;
 }

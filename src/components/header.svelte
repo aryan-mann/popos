@@ -1,17 +1,27 @@
 <script lang="ts">
 	import Geolocation from 'svelte-geolocation';
-	import { location } from '../state'
+	import { HomeIcon, MapIcon } from 'svelte-feather-icons';
+	import { location } from '../state';
 	let shouldGetPosition = false;
 
 	const headerData = {
 		menuItems: [
 			{
 				url: '/',
-				title: 'Home'
+				title: 'Home',
+				icon: HomeIcon,
+				type: 'Link'
+			},
+			{
+				title: 'Popos',
+				url: '/logo.png',
+				type: 'Logo'
 			},
 			{
 				url: '/cities',
-				title: 'Cities'
+				title: 'Cities',
+				icon: MapIcon,
+				type: 'Link'
 			}
 		]
 	};
@@ -19,68 +29,67 @@
 	function getPosition() {
 		shouldGetPosition = true;
 	}
-	function onPositionReceived(e: any) {
+	// eslint-disable-next-line no-undef
+	function onPositionReceived(e: CustomEvent<GeolocationPosition>) {
+		shouldGetPosition = false;
 		const latitude = e.detail.coords.latitude;
 		const longitude = e.detail.coords.longitude;
-		
-		if (typeof(latitude) == "number" && typeof(longitude) == "number") {
-			location.set([latitude, longitude])
+
+		if (typeof latitude == 'number' && typeof longitude == 'number') {
+			location.set([latitude, longitude]);
 		}
 	}
 </script>
 
-<style>
-	@import '../vars.css';
-	.cool-text {
-		padding: 4px 8px;
-		color: black;
-		background-color: var(--color-secondary);
-		border-radius: 4px;
-	}
-	.cool-text.disabled {
-		background-color: gray;
-	}
-</style>
-
 <header>
-	<nav class="navbar max-w-6xl m-auto py-4 items-center px-4 flex justify-between">
-		<ul class="flex space-x-3 flex-row font-medium lg:flex-row lg:space-x-8 lg:mt-0">
+	<nav
+		class="flex flex-col items-center max-w-6xl px-4 py-4 m-auto sm:flex-row sm:justify-between navbar"
+	>
+		<div
+			class="flex items-center justify-between w-full mb-4 space-x-2 font-medium sm:w-auto sm:mb-0"
+		>
 			{#each headerData.menuItems as menuItem}
-				<li>
+				{#if menuItem.type === 'Link'}
 					<a
 						href={menuItem.url}
-						class="block py-2 pr-4 pl-3 text-gray-800 shadow-lg rounded text-xl duration-200 hover:-rotate-2"
-						style="background-color: var(--color-secondary);"
-						aria-current="page"
+						class="flex items-center px-3 py-2 text-xl text-gray-800 duration-200 rounded hover:bg-secondary-400 bg-secondary-200"
 					>
-						{menuItem.title}
+						<svelte:component this={menuItem.icon} size="1.5x" />
+						<span class="px-2">{menuItem.title}</span>
 					</a>
-				</li>
+				{:else if menuItem.type === 'Logo'}
+					<div class="w-auto h-16 pr-8 sm:order-first">
+						<img class="w-full h-full shadow-lg rounded-xl" alt="" src={menuItem.url} />
+					</div>
+					<!-- <p class="h-full px-4 py-2 text-2xl font-bold underline md:order-first">{menuItem.title}</p> -->
+				{/if}
 			{/each}
-		</ul>
-		<div>
-			{#if $location != null}
-				<p class="cool-text">Coordinates: {$location}</p>
-			{:else}
-				<Geolocation 
-					getPosition={shouldGetPosition}
-					on:position={onPositionReceived}
-					let:loading let:success let:error let:notSupported
-				>
-					{#if notSupported}
-						<p class="cool-text">Your browser does not support the Geolocation API.</p>
-					{:else if loading}
-						<p class="cool-text disabled">Loading...</p>
-					{:else if error}
-						<p class="cool-text">An error occurred. {error.code} {error.message}</p>
-					{:else}
-						<button 
-							class="cool-text flex items-center px-2 py-1 text-gray-800 rounded shadow-lg"
-							on:click={getPosition}
-						>Get My Location</button>
-					{/if}
-				</Geolocation>
-			{/if}
+		</div>
+		<div class="w-full text-xl sm:w-auto">
+			<Geolocation
+				getPosition={shouldGetPosition}
+				on:position={onPositionReceived}
+				let:loading
+				let:success
+				let:error
+				let:notSupported
+			>
+				{#if notSupported || loading || error || $location}
+					<p class="w-full px-2 py-1 text-center text-white rounded shadow-xl bg-primary-700">
+						{#if $location}
+							Using Location!
+						{:else if notSupported}Unsupported.
+						{:else if loading}Loading..
+						{:else if error}Error!
+						{/if}
+					</p>
+				{:else}
+					<button
+						class="w-full px-2 py-1 rounded shadow-xl bg-primary-400 hover:bg-primary-200"
+						on:click={getPosition}>Use My Location</button
+					>
+				{/if}
+			</Geolocation>
 		</div>
 	</nav>
 </header>

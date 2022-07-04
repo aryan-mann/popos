@@ -3,8 +3,8 @@ export function distanceBetweenCoordinates(coords1: [number, number], coords2: [
     return deg * (Math.PI / 180);
   }
 
-  let [lat1, lon1] = coords1;
-  let [lat2, lon2] = coords2;
+  const [lat1, lon1] = coords1;
+  const [lat2, lon2] = coords2;
 
   const R = 6371; // Radius of the earth in km
   const dLat = deg2rad(lat2 - lat1); // deg2rad below
