@@ -4,6 +4,7 @@
     {
       "slug": "san-francisco",
       "address": "San Francisco, USA",
+      "imageName": "header.jpg",
       "displayName": "San Francisco",
       "mapCoordinates": [
         0,
@@ -422,6 +423,7 @@
       "slug": "boston",
       "displayName": "Boston",
       "address": "Boston, Massachusetts",
+      "imageName": "header.jpg",
       "mapCoordinates": [
         0,
         0

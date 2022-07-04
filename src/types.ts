@@ -1,9 +1,15 @@
 export type Coordinates = number[];
 
+export type ComponentPropsT = {
+  class: string;
+  style?: string;
+}
+
 export type CityT = {
   slug: string;
   address: string;
   displayName: string;
+  imageName?: string;
   mapCoordinates: Coordinates;
   popos?: PopoT[]
 }

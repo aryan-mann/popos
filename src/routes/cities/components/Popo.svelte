@@ -40,33 +40,33 @@
     }, [])
 </script>
 {#if popo}
-    <div class="group relative bg-white rounded-md shadow-sm hover:shadow-xl duration-200">
-        <div class="bb absolute w-full h-full left-0 top-0 -z-10"></div>
-        <div class="flex flex-col h-full justify-between">
+    <div class="relative bg-white group rounded-md shadow-sm hover:shadow-xl duration-200">
+        <div class="absolute top-0 left-0 w-full h-full bb -z-10"></div>
+        <div class="flex flex-col justify-between h-full">
             <div class="relative">
                 <img
-                        class="h-48 object-cover rounded-t-md w-full group-hover:scale-95 duration-150 group-hover:rounded-md"
+                        class="object-cover w-full h-48 rounded-t-md group-hover:scale-95 duration-150 group-hover:rounded-md"
                         alt=""
                         src={imageUrl}
                 />
                 {#if $distance}
-                    <p class="absolute rounded top-0 right-0 pointer-events-none px-2 py-1 bg-white">{$distance} Kms</p>
+                    <p class="absolute top-0 right-0 px-2 py-1 bg-white rounded pointer-events-none">{$distance} Kms</p>
                 {/if}
                 <div class="px-4 py-4">
-                    <p class="text-center mb-2 font-semibold">{popo.name}</p>
+                    <p class="mb-2 font-semibold text-center">{popo.name}</p>
                     <p>{popo.description}</p>
                 </div>
             </div>
-            <div class="m-2 flex flex-col rounded shadow-sm justify-self-end p-2"
+            <div class="flex flex-col p-2 m-2 rounded shadow-sm justify-self-end"
                  style="background-color: var(--color-primary);"
             >
                 <p>Hours: {popo.openingHours}</p>
-                <div class="flex gap-4 justify-end mt-3">
+                <div class="flex justify-end mt-3 gap-4">
                     {#each $links as {url, name}}
                         {#if url}
                             <a
                                     target="_blank"
-                                    class="self-end px-4 py-1 shadow hover:shadow-xl rounded"
+                                    class="self-end px-4 py-1 rounded shadow hover:shadow-xl"
                                     style="background-color: var(--color-secondary);"
                                     href={url}>{name}</a
                             >

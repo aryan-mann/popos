@@ -41,7 +41,7 @@
 	}
 </style>
 
-<div class="h-96 flex flex-col justify-center items-center space-y-4">
-	<div class="animated-404 my-2">404</div>
+<div class="flex flex-col items-center justify-center h-96 space-y-4">
+	<div class="my-2 animated-404">404</div>
 	<p class="text-2xl">Taking you back home in {currentTimerSecs} secs..</p>
 </div>

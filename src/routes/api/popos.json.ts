@@ -10,7 +10,7 @@ interface PoposGet {
 /** @type {import('./__types/items').RequestHandler} */
 export async function get(args: any): Promise<PoposGet>  {
   // const poposTomlString = await fs.readFile('./src/lib/popos.toml', "utf-8")
-  const poposJson: DatasetT = db;
+  const poposJson: DatasetT = { ...db };
 
   // Some processing:
   //   1. Add city slug to Popo 

@@ -9,7 +9,7 @@
 </svelte:head>
 
 <Header />
-<div class="p-8 max-w-6xl m-auto">
+<div class="max-w-6xl p-8 m-auto">
   <slot />
 </div>
 <Footer />

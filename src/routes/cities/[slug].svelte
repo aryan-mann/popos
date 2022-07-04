@@ -6,7 +6,8 @@
   /** @type {import("./__types/[slug]").Load} */
   export async function load({ params, fetch }) {
     const response = await fetch(`/api/citypopos/${params.slug}.json`);
-    const selectedCity: CityT = (await response.json()) || [];
+    const responseJson = await response.json()
+    const selectedCity: CityT = responseJson || [];
 
     return {
       status: response.status,
@@ -47,9 +48,9 @@
 {#if selectedCity == null}
   <p>City not found</p>
 {:else}
-  <h1 class="text-7xl text-black mb-8 mt-4">{selectedCity.displayName}</h1>
+  <h1 class="mb-8 text-5xl text-black">{selectedCity.displayName}</h1>
   {#if selectedCity.popos}
-    <div class="grid grid-cols-3 gap-x-2 gap-y-4">
+    <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-x-2 gap-y-4">
       {#each $cityPopos as popo (popo.name)}
         <Popo {popo} city={selectedCity} />
       {/each}
