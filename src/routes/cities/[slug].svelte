@@ -48,7 +48,7 @@
 {#if selectedCity == null}
   <p>City not found</p>
 {:else}
-  <h1 class="mb-8 text-5xl text-black">{selectedCity.displayName}</h1>
+  <h1 class="mb-8 text-5xl text-black sm:mb-10 md:mb-12 sm:text-6xl sm:mt-5 md:mt-10 md:text-7xl">{selectedCity.displayName}</h1>
   {#if selectedCity.popos}
     <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-x-2 gap-y-4">
       {#each $cityPopos as popo (popo.name)}

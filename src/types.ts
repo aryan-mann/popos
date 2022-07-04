@@ -17,10 +17,15 @@ export type CityT = {
 export type PopoT = {
   name: string;
   imageName?: string;
+  featured?: boolean;
   openingHours: string;
+  address?: string;
+  vetted?: boolean;
   mapCoordinates: Coordinates;
   description: string;
   citySlug?: string;
+  authorNote?: string;
+  tags?: string[];
 }
 
 export type DatasetT = {

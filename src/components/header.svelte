@@ -58,10 +58,9 @@
 						<span class="px-2">{menuItem.title}</span>
 					</a>
 				{:else if menuItem.type === 'Logo'}
-					<div class="w-auto h-16 pr-8 sm:order-first">
+					<div class="w-auto h-16 sm:pr-8 sm:order-first">
 						<img class="w-full h-full shadow-lg rounded-xl" alt="" src={menuItem.url} />
 					</div>
-					<!-- <p class="h-full px-4 py-2 text-2xl font-bold underline md:order-first">{menuItem.title}</p> -->
 				{/if}
 			{/each}
 		</div>
