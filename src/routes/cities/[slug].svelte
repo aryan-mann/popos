@@ -22,11 +22,16 @@
   import { distanceBetweenCoordinates, formatTitle } from "../../utils";
   import { derived, type Readable } from "svelte/store";
 
-  function distanceFromLocation(c1: Coordinates, c2: Coordinates): number {
+  function distanceFromLocation(c1: PopoT, c2: PopoT): number {
     if ($location == null)
-      return 0;
-    const distC1 = distanceBetweenCoordinates(c1, $location);
-    const distC2 = distanceBetweenCoordinates(c2, $location);
+      return (c2?.rating ?? 0) - (c1?.rating ?? 0);
+
+    const distC1 = distanceBetweenCoordinates(c1.mapCoordinates, $location);
+    const distC2 = distanceBetweenCoordinates(c2.mapCoordinates, $location);
+
+    if (distC1 === distC2)
+      return (c2?.rating ?? 0) - (c1?.rating ?? 0)
+
     return distC1 - distC2;
   }
 
@@ -37,7 +42,7 @@
       return [];
 
     return [...selectedCity.popos]
-      .sort((x, y) => distanceFromLocation(x.mapCoordinates, y.mapCoordinates));
+      .sort((x, y) => distanceFromLocation(x, y));
   }, selectedCity?.popos || []);
 </script>
 

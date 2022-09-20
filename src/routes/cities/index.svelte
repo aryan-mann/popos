@@ -3,10 +3,17 @@
   import { formatTitle } from "../../utils";
 
   /** @type {import('./__types/[slug]').Load} */
-  export async function load({fetch}) {
+  export async function load({ fetch }) {
     const response = await fetch(`/api/cities.json`);
     const cities: CityT[] = await response.json();
     
+    if (cities && cities.length == 1) {
+      return {
+        status: 302,
+        redirect: `/cities/${cities[0].slug}`
+      }
+    }
+
     return {
       status: response.status,
       props: {

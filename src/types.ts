@@ -1,4 +1,4 @@
-export type Coordinates = number[];
+export type Coordinates = [number, number];
 
 export type ComponentPropsT = {
   class: string;
@@ -26,6 +26,7 @@ export type PopoT = {
   citySlug?: string;
   authorNote?: string;
   tags?: string[];
+  rating?: number;
 }
 
 export type DatasetT = {

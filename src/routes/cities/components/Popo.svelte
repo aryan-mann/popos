@@ -4,6 +4,7 @@
 	import { location } from '../../../state';
 	import { distanceBetweenCoordinates } from '../../../utils';
 	import { StarIcon } from 'svelte-feather-icons';
+	import { raf } from "svelte/internal";
 
 	export let popo: PopoT;
 	export let city: CityT;
@@ -50,6 +51,24 @@
 		},
 		[]
 	);
+
+	function formatRating(rating: number | undefined) {
+		if (!rating)
+			return '??';
+
+		let starsLeft = 5;
+		let text = '';
+
+		for (let i=1; i <= rating; i++) {
+			starsLeft -= 1;
+			text += '★';
+		}
+		for (let i=1; i <= starsLeft; i++) {
+			text += '☆';
+		}
+
+		return text;
+	}
 </script>
 
 {#if popo}
@@ -69,17 +88,18 @@
 						{$distance} Kms
 					</p>
 				{/if}
-				<div class="px-4 py-4">
+				<div class="px-4 pt-4 pb-2">
 					<p class="mb-2 font-bold text-center">{popo.name}</p>
 					<p>{popo.description}</p>
 					{#if popo.authorNote}
 						<p class="mt-2"><b>Authors Note: </b>{popo.authorNote}</p>
 					{/if}
+					<p class="mt-2"><b>Rating: </b><span class="text-secondary-600">{formatRating(popo.rating)}</span></p>
 					<p class="py-1 mt-3 text-center rounded bg-primary-200">Open: {popo.openingHours}</p>
 				</div>
 			</div>
 			{#if popo.tags}
-				<div class="flex items-center w-full gap-2 px-4 py-2 overflow-x-scroll">
+				<div class="flex items-center w-full gap-2 px-4 overflow-x-scroll">
 					{#each popo.tags as tag}
 						<p class="px-2 py-1 rounded bg-secondary-200" style="min-width: fit-content;">{tag}</p>
 					{/each}
